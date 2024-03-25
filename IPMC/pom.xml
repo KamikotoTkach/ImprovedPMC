@@ -9,25 +9,15 @@
         <version>1.0</version>
     </parent>
 
-    <groupId>ru.cwcode.tkach.ipmc.paper</groupId>
-    <artifactId>PaperIPMC</artifactId>
+    <groupId>ru.cwcode.tkach.ipmc.bundle</groupId>
+    <artifactId>IPMC</artifactId>
+    <version>1.0</version>
 
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>papermc-repo</id>
-            <url>https://repo.papermc.io/repository/maven-public/</url>
-        </repository>
-        <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
-        </repository>
-    </repositories>
     <build>
         <plugins>
             <plugin>
@@ -50,16 +40,14 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <groupId>ru.cwcode.tkach.ipmc.paper</groupId>
+            <artifactId>PaperIPMC</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
-            <groupId>ru.cwcode.tkach.ipmc</groupId>
-            <artifactId>Share</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>ru.cwcode.tkach.ipmc.velocity</groupId>
+            <artifactId>VelocityIPMC</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>

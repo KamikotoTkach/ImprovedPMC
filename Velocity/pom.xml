@@ -6,11 +6,11 @@
     <parent>
         <groupId>ru.cwcode.tkach.ipmc</groupId>
         <artifactId>ImprovedPMC</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <groupId>ru.cwcode.tkach.ipmc.velocity</groupId>
-    <artifactId>Velocity</artifactId>
+    <artifactId>VelocityIPMC</artifactId>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
