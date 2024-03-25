@@ -1,0 +1,6 @@
+name: IPMC
+version: '${project.version}'
+main: ru.cwcode.tkach.ipmc.paper.IPMC
+api-version: '1.16'
+authors: [ "TkachGeek" ]
+website: "https://t.me/tkachx"
