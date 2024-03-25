@@ -29,6 +29,7 @@ public class VelocityIncomingPacketHandler extends IncomingPacketHandler<ServerC
       if (channel == null) return;
       
       receive((ServerConnection) event.getSource(), channel, event.getData());
+      event.setResult(PluginMessageEvent.ForwardResult.handled());
     }
   }
 }
