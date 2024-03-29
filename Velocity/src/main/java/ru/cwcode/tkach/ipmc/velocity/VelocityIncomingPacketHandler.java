@@ -12,10 +12,14 @@ import java.util.function.BiConsumer;
 public class VelocityIncomingPacketHandler extends IncomingPacketHandler<ServerConnection, Packet, IPMC> {
   public VelocityIncomingPacketHandler(IPMC plugin) {
     super(plugin);
+    
+    plugin.server.getEventManager().register(plugin,this);
   }
   
   @Override
   public void register(String channel, Class<Packet> packetClass, BiConsumer<ServerConnection, Packet> onReceive) {
+    if(isRegistered(channel)) return;
+    
     super.register(channel, packetClass, onReceive);
     MinecraftChannelIdentifier channelInst = MinecraftChannelIdentifier.from(channel);
     plugin.registerIdentifier(channel, channelInst);

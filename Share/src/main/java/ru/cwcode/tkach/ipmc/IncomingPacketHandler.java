@@ -8,17 +8,23 @@ import java.util.function.BiConsumer;
 
 public class IncomingPacketHandler<P, T extends Packet, S> {
   protected S plugin;
-  HashMap<String, IncomingPacketWrapper<P, T>> registeredIncomingPackets = new HashMap<>();
+  protected HashMap<String, IncomingPacketWrapper<P, T>> registeredIncomingPackets = new HashMap<>();
   
   public IncomingPacketHandler(S plugin) {
     this.plugin = plugin;
   }
   
   public  void register(String channel, Class<T> packetClass, BiConsumer<P, T> onReceive) {
-    registeredIncomingPackets.put(channel, new IncomingPacketWrapper<>(packetClass, onReceive));
+    registeredIncomingPackets.computeIfAbsent(channel, k -> new IncomingPacketWrapper<>(packetClass))
+                                .addConsumer(onReceive);
   }
+  
   public void unregister(String channel) {
     registeredIncomingPackets.remove(channel);
+  }
+  
+  public boolean isRegistered(String channel) {
+    return registeredIncomingPackets.containsKey(channel);
   }
   
   public void receive(P player, String channel, byte[] packet) {

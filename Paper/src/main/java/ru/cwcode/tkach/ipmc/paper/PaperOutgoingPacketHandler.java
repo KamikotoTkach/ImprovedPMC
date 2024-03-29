@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import ru.cwcode.tkach.ipmc.OutgoingPacketHandler;
 import ru.cwcode.tkach.ipmc.Packet;
 
+import java.util.logging.Logger;
+
 public class PaperOutgoingPacketHandler extends OutgoingPacketHandler<Player, Packet, JavaPlugin> {
   public PaperOutgoingPacketHandler(JavaPlugin source) {
     super(source);
@@ -13,7 +15,10 @@ public class PaperOutgoingPacketHandler extends OutgoingPacketHandler<Player, Pa
   
   @Override
   public void register(String channel, Class<? extends Packet> packetClass) {
+    if (isRegistered(channel)) return;
+    
     super.register(channel, packetClass);
+    
     Bukkit.getMessenger().registerOutgoingPluginChannel(source, channel);
   }
   
@@ -25,6 +30,8 @@ public class PaperOutgoingPacketHandler extends OutgoingPacketHandler<Player, Pa
   
   @Override
   public void send(Packet packet, Player connection) {
+    Logger.getGlobal().info("Sending packet " + packet.channel() + "to " + connection.getName());
+    
     connection.sendPluginMessage(source, packet.channel(), packet.asByteArray());
   }
 }
