@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Paper.iml" filepath="$PROJECT_DIR$/Paper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Paper/PaperIPMC.iml" filepath="$PROJECT_DIR$/Paper/PaperIPMC.iml" />
       <module fileurl="file://$PROJECT_DIR$/Velocity.iml" filepath="$PROJECT_DIR$/Velocity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Velocity/VelocityIPMC.iml" filepath="$PROJECT_DIR$/Velocity/VelocityIPMC.iml" />
     </modules>
   </component>
 </project>

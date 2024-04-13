@@ -6,8 +6,9 @@
 
     <groupId>ru.cwcode.tkach.ipmc</groupId>
     <artifactId>ImprovedPMC</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
+
     <modules>
         <module>Share</module>
         <module>Paper</module>
