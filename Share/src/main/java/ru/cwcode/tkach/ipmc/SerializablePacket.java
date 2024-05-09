@@ -2,14 +2,12 @@ package ru.cwcode.tkach.ipmc;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
+import lombok.*;
 
 import java.io.*;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class SerializablePacket<T extends Serializable> implements Packet {
