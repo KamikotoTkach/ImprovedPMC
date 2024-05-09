@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/IPMC/dependency-reduced-pom.xml
+/Paper/dependency-reduced-pom.xml
+/Velocity/dependency-reduced-pom.xml
