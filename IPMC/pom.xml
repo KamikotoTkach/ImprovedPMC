@@ -6,12 +6,12 @@
     <parent>
         <groupId>ru.cwcode.tkach.ipmc</groupId>
         <artifactId>ImprovedPMC</artifactId>
-        <version>1.0.1</version>
+        <version>1.2.0</version>
     </parent>
 
     <groupId>ru.cwcode.tkach.ipmc.bundle</groupId>
     <artifactId>IPMC</artifactId>
-    <version>1.0.1</version>
+    <version>1.2.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -42,12 +42,12 @@
         <dependency>
             <groupId>ru.cwcode.tkach.ipmc.paper</groupId>
             <artifactId>PaperIPMC</artifactId>
-            <version>1.0.1</version>
+            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.ipmc.velocity</groupId>
             <artifactId>VelocityIPMC</artifactId>
-            <version>1.0.1</version>
+            <version>1.2.0</version>
         </dependency>
     </dependencies>
 </project>
