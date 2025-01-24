@@ -12,16 +12,6 @@ public class VelocityOutgoingPacketHandler extends OutgoingPacketHandler<ServerC
   }
   
   @Override
-  public void register(String channel, Class<? extends Packet> packetClass) {
-    super.register(channel, packetClass);
-  }
-  
-  @Override
-  public void unregister(String channel) {
-    super.unregister(channel);
-  }
-  
-  @Override
   public void send(Packet packet, ServerConnection connection) {
     connection.sendPluginMessage(MinecraftChannelIdentifier.from(packet.channel()), packet.asByteArray());
   }

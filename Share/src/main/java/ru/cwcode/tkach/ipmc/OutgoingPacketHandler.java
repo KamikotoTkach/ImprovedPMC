@@ -11,7 +11,7 @@ public abstract class OutgoingPacketHandler<C, P extends Packet, S> {
   }
   
   public void register(String channel, Class<? extends Packet> packetClass) {
-    registeredOutgoingPackets.put(channel, packetClass);
+    registeredOutgoingPackets.putIfAbsent(channel, packetClass);
   }
   
   public boolean isRegistered(String channel) {

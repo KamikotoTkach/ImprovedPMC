@@ -8,6 +8,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.ServerConnection;
 import com.velocitypowered.api.proxy.messages.ChannelIdentifier;
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
+import ru.cwcode.tkach.ipmc.Packet;
 import ru.cwcode.tkach.ipmc.PacketManager;
 
 import java.util.HashMap;
@@ -18,13 +19,13 @@ import java.util.HashMap;
    version = "1.0"
 )
 public class IPMC {
-  protected static PacketManager<ServerConnection, IPMC> packetManager;
+  protected static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> packetManager;
   HashMap<String, ChannelIdentifier> identifiers = new HashMap<>();
   HashMap<ChannelIdentifier, String> identifiersRev = new HashMap<>();
   @Inject
   ProxyServer server;
   
-  public static PacketManager<ServerConnection, IPMC> packetManager() {
+  public static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> packetManager() {
     return packetManager;
   }
   
