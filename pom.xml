@@ -13,6 +13,7 @@
         <module>Share</module>
         <module>Paper</module>
         <module>Velocity</module>
+        <module>Kafka</module>
         <module>IPMC</module>
     </modules>
 
