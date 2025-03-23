@@ -28,7 +28,7 @@ public class PaperOutgoingPacketHandler extends OutgoingPacketHandler<Player, Pa
   
   @Override
   public void send(Packet packet, Player connection) {
-    source.getLogger().info("Sending packet " + packet.channel() + "to " + connection.getName());
+    source.getLogger().info("Sending packet " + packet.channel() + " to " + connection.getName());
     
     connection.sendPluginMessage(source, packet.channel(), packet.asByteArray());
   }

@@ -1,5 +1,7 @@
 package ru.cwcode.tkach.ipmc;
 
+import lombok.SneakyThrows;
+
 import java.lang.reflect.InvocationTargetException;
 
 public class PacketUtils {
@@ -10,5 +12,10 @@ public class PacketUtils {
       e.printStackTrace();
     }
     return null;
+  }
+  
+  @SneakyThrows
+  public static <T> T create(Class<T> type) {
+    return type.getConstructor().newInstance();
   }
 }

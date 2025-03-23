@@ -14,9 +14,16 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
     this.plugin = plugin;
   }
   
-  public  void register(String channel, Class<T> packetClass, BiConsumer<P, T> onReceive) {
-    registeredIncomingPackets.computeIfAbsent(channel, k -> new IncomingPacketWrapper<>(packetClass))
-                                .addConsumer(onReceive);
+  public void register(String channel, Class<T> packetClass, BiConsumer<P, T> onReceive) {
+    registerWrapper(channel,packetClass).addConsumer(onReceive);
+  }
+  
+  public IncomingPacketWrapper<P, T> registerWrapper(String channel, Class<T> packetClass) {
+    return registeredIncomingPackets.computeIfAbsent(channel, k -> new IncomingPacketWrapper<>(packetClass));
+  }
+  
+  public IncomingPacketWrapper<P, T> getPacketHandlersWrapper(String channel) {
+    return registeredIncomingPackets.get(channel);
   }
   
   public void unregister(String channel) {
@@ -27,20 +34,29 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
     return registeredIncomingPackets.containsKey(channel);
   }
   
-  public void receive(P player, String channel, byte[] packet) {
+  public T parse(String channel, byte[] packet) {
     IncomingPacketWrapper<P, T> wrapper = registeredIncomingPackets.get(channel);
-    if (wrapper == null) return;
+    if (wrapper == null) return null;
     
     Class<? extends Packet> packetClass = wrapper.packetClass();
-    if (packetClass == null) return;
+    if (packetClass == null) return null;
     
-    Packet packetInstance;
+    Packet packetInstance = null;
     try {
       packetInstance = packetClass.getConstructor().newInstance();
       packetInstance.read(ByteStreams.newDataInput(packet));
-      wrapper.onReceive(player, (T) packetInstance);
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       e.printStackTrace();
+    }
+    
+    return (T) packetInstance;
+  }
+  
+  public void receive(P player, String channel, byte[] packet) {
+    T parsed = parse(channel, packet);
+    
+    if (parsed != null) {
+      registeredIncomingPackets.get(channel).onReceive(player, parsed);
     }
   }
   
