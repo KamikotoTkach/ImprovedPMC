@@ -37,6 +37,10 @@ public class CallListener<C, P extends Packet, IS, OS, I extends IncomingPacketH
     }
   }
   
+  public boolean isAwaitingResponse(P callPacket) {
+    return awaitingResponses.containsKey(callPacket);
+  }
+  
   @Getter
   @AllArgsConstructor
   static class AwaitingResponse<C> {
