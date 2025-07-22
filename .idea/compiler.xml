@@ -12,6 +12,7 @@
         <module name="VelocityIPMC" />
         <module name="Share" />
         <module name="Velocity" />
+        <module name="BungeeIPMC" />
         <module name="IPMC" />
       </profile>
     </annotationProcessing>
