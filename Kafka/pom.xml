@@ -9,6 +9,8 @@
     <packaging>jar</packaging>
     <version>1.4.0</version>
 
+    <name>KafkaIPMC</name>
+
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
