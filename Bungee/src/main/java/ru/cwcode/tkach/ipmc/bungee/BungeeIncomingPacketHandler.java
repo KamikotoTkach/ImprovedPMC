@@ -26,7 +26,7 @@ public class BungeeIncomingPacketHandler extends IncomingPacketHandler<ProxiedPl
   }
   
   @EventHandler
-  protected void onPluginMessage(PluginMessageEvent event) {
+  public void onPluginMessage(PluginMessageEvent event) {
     if (event.getSender() instanceof ProxiedPlayer) {
       String channel = event.getTag();
       receive(((ProxiedPlayer) event.getSender()), channel, event.getData());
