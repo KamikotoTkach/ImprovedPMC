@@ -16,7 +16,7 @@ import java.util.HashMap;
 @Plugin(
    id = "ipmc",
    name = "IPMC",
-   version = "1.0"
+   version = "1.4.0"
 )
 public class IPMC {
   protected static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> packetManager;
