@@ -53,7 +53,7 @@ public class PacketManager<C, P extends Packet, IS, OS, I extends IncomingPacket
     
     send((P) callPacketWrapper, connection);
     
-    return completable.orTimeout(35, TimeUnit.SECONDS)
+    return completable.orTimeout(5, TimeUnit.SECONDS)
       .exceptionally(throwable -> {
         throwable.printStackTrace();
         return null;
@@ -62,5 +62,9 @@ public class PacketManager<C, P extends Packet, IS, OS, I extends IncomingPacket
   
   public void sendResponse(P callPacket, P responsePacket) {
     callListener.onResponse(callPacket, responsePacket);
+  }
+  
+  public boolean isAwaitingResponse(P callPacket) {
+    return callListener.isAwaitingResponse(callPacket);
   }
 }
