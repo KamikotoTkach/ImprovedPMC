@@ -42,6 +42,11 @@
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.ipmc</groupId>
+            <artifactId>BungeeIPMC</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.cwcode.tkach.ipmc</groupId>
             <artifactId>VelocityIPMC</artifactId>
             <version>1.4.0</version>
         </dependency>
