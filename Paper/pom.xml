@@ -6,7 +6,7 @@
 
     <groupId>ru.cwcode.tkach.ipmc</groupId>
     <artifactId>PaperIPMC</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -183,8 +183,14 @@
         <dependency>
             <groupId>ru.cwcode.tkach.ipmc</groupId>
             <artifactId>Share</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

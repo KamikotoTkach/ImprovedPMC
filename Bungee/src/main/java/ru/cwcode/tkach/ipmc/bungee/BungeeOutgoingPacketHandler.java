@@ -1,17 +1,17 @@
 package ru.cwcode.tkach.ipmc.bungee;
 
-import net.md_5.bungee.api.connection.Server;
 import ru.cwcode.tkach.ipmc.OutgoingPacketHandler;
 import ru.cwcode.tkach.ipmc.Packet;
+import ru.cwcode.tkach.ipmc.bungee.wrapper.ServerConnection;
 
-public class BungeeOutgoingPacketHandler extends OutgoingPacketHandler<Server, Packet, IPMC> {
+public class BungeeOutgoingPacketHandler extends OutgoingPacketHandler<ServerConnection, Packet, IPMC> {
   
   public BungeeOutgoingPacketHandler(IPMC source) {
     super(source);
   }
   
   @Override
-  public void send(Packet packet, Server server) {
-    server.sendData(packet.channel(), packet.asByteArray());
+  public void send(Packet packet, ServerConnection serverConnection) {
+    serverConnection.getServer().sendData(packet.channel(), packet.asByteArray());
   }
 }

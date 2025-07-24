@@ -1,14 +1,14 @@
 package ru.cwcode.tkach.ipmc.bungee;
 
-import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Plugin;
 import ru.cwcode.tkach.ipmc.Packet;
 import ru.cwcode.tkach.ipmc.PacketManager;
+import ru.cwcode.tkach.ipmc.bungee.wrapper.ServerConnection;
 
 public class IPMC extends Plugin {
-  protected static PacketManager<Server, Packet, IPMC, IPMC, BungeeIncomingPacketHandler, BungeeOutgoingPacketHandler> packetManager;
+  protected static PacketManager<ServerConnection, Packet, IPMC, IPMC, BungeeIncomingPacketHandler, BungeeOutgoingPacketHandler> packetManager;
   
-  public static PacketManager<Server, Packet, IPMC, IPMC, BungeeIncomingPacketHandler, BungeeOutgoingPacketHandler> packetManager() {
+  public static PacketManager<ServerConnection, Packet, IPMC, IPMC, BungeeIncomingPacketHandler, BungeeOutgoingPacketHandler> packetManager() {
     return packetManager;
   }
   
