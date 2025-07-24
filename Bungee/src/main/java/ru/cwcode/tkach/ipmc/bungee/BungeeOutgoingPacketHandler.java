@@ -12,6 +12,6 @@ public class BungeeOutgoingPacketHandler extends OutgoingPacketHandler<ProxiedPl
   
   @Override
   public void send(Packet packet, ProxiedPlayer proxiedPlayer) {
-    proxiedPlayer.getServer().getInfo().sendData(packet.channel(), packet.asByteArray());
+    proxiedPlayer.sendData(packet.channel(), packet.asByteArray());
   }
 }
