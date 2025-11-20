@@ -11,7 +11,7 @@ public class PaperOutgoingPacketHandler extends OutgoingPacketHandler<Player, Pa
   public PaperOutgoingPacketHandler(JavaPlugin source) {
     super(source);
     
-    Bukkit.getMessenger().unregisterOutgoingPluginChannel(source, PacketUtils.INTERNAL_CHANNEL);
+    Bukkit.getMessenger().registerOutgoingPluginChannel(source, PacketUtils.INTERNAL_CHANNEL);
   }
   
   @Override
