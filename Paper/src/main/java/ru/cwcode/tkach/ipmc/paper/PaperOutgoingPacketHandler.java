@@ -5,29 +5,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.cwcode.tkach.ipmc.OutgoingPacketHandler;
 import ru.cwcode.tkach.ipmc.Packet;
+import ru.cwcode.tkach.ipmc.PacketUtils;
 
 public class PaperOutgoingPacketHandler extends OutgoingPacketHandler<Player, Packet, JavaPlugin> {
   public PaperOutgoingPacketHandler(JavaPlugin source) {
     super(source);
-  }
-  
-  @Override
-  public void register(String channel, Class<? extends Packet> packetClass) {
-    if (isRegistered(channel)) return;
     
-    super.register(channel, packetClass);
-    
-    Bukkit.getMessenger().registerOutgoingPluginChannel(source, channel);
-  }
-  
-  @Override
-  public void unregister(String channel) {
-    super.unregister(channel);
-    Bukkit.getMessenger().unregisterOutgoingPluginChannel(source, channel);
+    Bukkit.getMessenger().unregisterOutgoingPluginChannel(source, PacketUtils.INTERNAL_CHANNEL);
   }
   
   @Override
   public void send(Packet packet, Player connection) {
-    connection.sendPluginMessage(source, packet.channel(), packet.asByteArray());
+    connection.sendPluginMessage(source, PacketUtils.INTERNAL_CHANNEL, packet.asByteArray());
   }
 }

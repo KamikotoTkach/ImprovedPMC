@@ -1,5 +1,6 @@
 package ru.cwcode.tkach.ipmc;
 
+import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +16,7 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
   }
   
   public void register(String channel, Class<T> packetClass, BiConsumer<P, T> onReceive) {
-    registerWrapper(channel,packetClass).addConsumer(onReceive);
+    registerWrapper(channel, packetClass).addConsumer(onReceive);
   }
   
   public IncomingPacketWrapper<P, T> registerWrapper(String channel, Class<T> packetClass) {
@@ -44,7 +45,10 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
     Packet packetInstance = null;
     try {
       packetInstance = packetClass.getConstructor().newInstance();
-      packetInstance.read(ByteStreams.newDataInput(packet));
+      ByteArrayDataInput dataInput = ByteStreams.newDataInput(packet);
+      dataInput.readUTF(); //first UTF - subchannel
+      
+      packetInstance.read(dataInput);
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       e.printStackTrace();
     }

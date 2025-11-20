@@ -3,6 +3,7 @@ package ru.cwcode.tkach.ipmc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.logging.Logger;
 
 public class IncomingPacketWrapper<P, T extends Packet> {
   protected Class<T> packetClass;
@@ -23,7 +24,15 @@ public class IncomingPacketWrapper<P, T extends Packet> {
   
   public void onReceive(P player, T packet) {
     for (BiConsumer<P, T> consumer : onReceive) {
-      consumer.accept(player, packet);
+      try {
+        consumer.accept(player, packet);
+      } catch (Exception e) {
+        Logger.getLogger("IPMC").warning("Cannot process packet %s for player %s: %s (consumer %s)"
+                                           .formatted(packet.channel(),
+                                                      player,
+                                                      e.getMessage(),
+                                                      consumer.getClass().getName()));
+      }
     }
   }
 }

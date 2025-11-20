@@ -4,6 +4,7 @@ import com.velocitypowered.api.proxy.ServerConnection;
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import ru.cwcode.tkach.ipmc.OutgoingPacketHandler;
 import ru.cwcode.tkach.ipmc.Packet;
+import ru.cwcode.tkach.ipmc.PacketUtils;
 
 public class VelocityOutgoingPacketHandler extends OutgoingPacketHandler<ServerConnection, Packet, IPMC> {
   
@@ -13,6 +14,6 @@ public class VelocityOutgoingPacketHandler extends OutgoingPacketHandler<ServerC
   
   @Override
   public void send(Packet packet, ServerConnection connection) {
-    connection.sendPluginMessage(MinecraftChannelIdentifier.from(packet.channel()), packet.asByteArray());
+    connection.sendPluginMessage(MinecraftChannelIdentifier.from(PacketUtils.INTERNAL_CHANNEL), packet.asByteArray());
   }
 }

@@ -2,6 +2,7 @@ package ru.cwcode.tkach.ipmc.bungee;
 
 import ru.cwcode.tkach.ipmc.OutgoingPacketHandler;
 import ru.cwcode.tkach.ipmc.Packet;
+import ru.cwcode.tkach.ipmc.PacketUtils;
 import ru.cwcode.tkach.ipmc.bungee.wrapper.ServerConnection;
 
 public class BungeeOutgoingPacketHandler extends OutgoingPacketHandler<ServerConnection, Packet, IPMC> {
@@ -12,6 +13,6 @@ public class BungeeOutgoingPacketHandler extends OutgoingPacketHandler<ServerCon
   
   @Override
   public void send(Packet packet, ServerConnection serverConnection) {
-    serverConnection.getServer().sendData(packet.channel(), packet.asByteArray());
+    serverConnection.getServer().sendData(PacketUtils.INTERNAL_CHANNEL, packet.asByteArray());
   }
 }

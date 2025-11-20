@@ -8,10 +8,13 @@ public interface Packet {
   void read(ByteArrayDataInput inputStream);
   void write(ByteArrayDataOutput outputStream);
   
-  String channel();
+  default String channel() {
+    return getClass().getName();
+  }
   
   default byte[] asByteArray() {
     ByteArrayDataOutput outputStream = ByteStreams.newDataOutput();
+    outputStream.writeUTF(channel());
     write(outputStream);
     return outputStream.toByteArray();
   }
