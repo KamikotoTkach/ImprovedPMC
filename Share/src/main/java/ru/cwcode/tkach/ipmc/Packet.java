@@ -12,7 +12,13 @@ public interface Packet {
     return getClass().getName();
   }
   
-  default byte[] asByteArray() {
+  default void read(byte[] data) {
+    ByteArrayDataInput dataInput = ByteStreams.newDataInput(data);
+    dataInput.readUTF();
+    read(dataInput);
+  }
+  
+  default byte[] write() {
     ByteArrayDataOutput outputStream = ByteStreams.newDataOutput();
     outputStream.writeUTF(channel());
     write(outputStream);

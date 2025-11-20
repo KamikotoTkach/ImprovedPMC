@@ -13,6 +13,6 @@ public class BungeeOutgoingPacketHandler extends OutgoingPacketHandler<ServerCon
   
   @Override
   public void send(Packet packet, ServerConnection serverConnection) {
-    serverConnection.getServer().sendData(PacketUtils.INTERNAL_CHANNEL, packet.asByteArray());
+    serverConnection.getServer().sendData(PacketUtils.INTERNAL_CHANNEL, packet.write());
   }
 }

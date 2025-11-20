@@ -45,10 +45,7 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
     Packet packetInstance = null;
     try {
       packetInstance = packetClass.getConstructor().newInstance();
-      ByteArrayDataInput dataInput = ByteStreams.newDataInput(packet);
-      dataInput.readUTF(); //first UTF - subchannel
-      
-      packetInstance.read(dataInput);
+      packetInstance.read(packet);
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       e.printStackTrace();
     }

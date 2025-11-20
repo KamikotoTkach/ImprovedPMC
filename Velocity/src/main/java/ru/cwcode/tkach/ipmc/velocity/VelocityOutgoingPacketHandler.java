@@ -14,6 +14,6 @@ public class VelocityOutgoingPacketHandler extends OutgoingPacketHandler<ServerC
   
   @Override
   public void send(Packet packet, ServerConnection connection) {
-    connection.sendPluginMessage(MinecraftChannelIdentifier.from(PacketUtils.INTERNAL_CHANNEL), packet.asByteArray());
+    connection.sendPluginMessage(MinecraftChannelIdentifier.from(PacketUtils.INTERNAL_CHANNEL), packet.write());
   }
 }

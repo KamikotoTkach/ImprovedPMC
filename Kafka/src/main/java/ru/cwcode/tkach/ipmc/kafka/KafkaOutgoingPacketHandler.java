@@ -18,7 +18,7 @@ public class KafkaOutgoingPacketHandler extends OutgoingPacketHandler<String, Pa
     }
     
     try {
-      ProducerRecord<String, byte[]> record = new ProducerRecord<>(channel, packet.asByteArray());
+      ProducerRecord<String, byte[]> record = new ProducerRecord<>(channel, packet.write());
       source.getProducer().send(record);
     } catch (Exception e) {
       throw new RuntimeException(e);
