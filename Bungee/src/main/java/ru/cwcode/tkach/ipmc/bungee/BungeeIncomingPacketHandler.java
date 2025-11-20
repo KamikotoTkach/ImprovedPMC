@@ -23,13 +23,14 @@ public class BungeeIncomingPacketHandler extends IncomingPacketHandler<ServerCon
   
   @EventHandler
   public void onPluginMessage(PluginMessageEvent event) {
+    String channelId = event.getTag();
+    if (!channelId.equalsIgnoreCase(PacketUtils.INTERNAL_CHANNEL)) return;
+    
     if (event.getSender() instanceof ProxiedPlayer player) {
-      if (event.getTag().startsWith("ipmc")) {
-        Logger.getAnonymousLogger().severe("Player %s trying to hack the server using PMC".formatted(player.getName()));
-        player.disconnect(TextComponent.fromLegacy("Hacking is not allowed on this server"));
-        event.setCancelled(true);
-        return;
-      }
+      Logger.getAnonymousLogger().severe("Player %s trying to hack the server using PMC".formatted(player.getName()));
+      player.disconnect(TextComponent.fromLegacy("Hacking is not allowed on this server"));
+      event.setCancelled(true);
+      return;
     }
     
     if (!(event.getSender() instanceof Server server)
@@ -38,7 +39,9 @@ public class BungeeIncomingPacketHandler extends IncomingPacketHandler<ServerCon
       return;
     }
     
-    String channel = event.getTag();
+    String channel = PacketUtils.extractChannel(event.getData());
+    if (channel == null) return;
+    
     ServerConnection serverConnection = new ServerConnection(server, player);
     
     receive(serverConnection, channel, event.getData());

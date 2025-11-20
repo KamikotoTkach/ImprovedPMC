@@ -18,19 +18,21 @@ public class VelocityIncomingPacketHandler extends IncomingPacketHandler<ServerC
     
     MinecraftChannelIdentifier channelInst = MinecraftChannelIdentifier.from(PacketUtils.INTERNAL_CHANNEL);
     plugin.server.getChannelRegistrar().register(channelInst);
-    plugin.server.getEventManager().register(plugin,this);
+    plugin.server.getEventManager().register(plugin, this);
   }
   
   @Subscribe
   protected void onPluginMessage(PluginMessageEvent event) {
+    String channelId = event.getIdentifier().getId();
+    if (!channelId.equalsIgnoreCase(PacketUtils.INTERNAL_CHANNEL)) return;
+    
     if (event.getSource() instanceof ServerConnection sc) {
       String channel = PacketUtils.extractChannel(event.dataAsInputStream());
       if (channel == null) return;
       
       receive(sc, channel, event.getData());
       event.setResult(PluginMessageEvent.ForwardResult.handled());
-    } else if (event.getSource() instanceof Player player && (event.getIdentifier().getId().startsWith("ipmc"))) {
-      
+    } else if (event.getSource() instanceof Player player) {
       event.setResult(PluginMessageEvent.ForwardResult.handled());
       Logger.getAnonymousLogger().severe("Player %s trying to hack the server using PMC".formatted(player.getUsername()));
       player.disconnect(Component.text("Hacking is not allowed on this server"));
