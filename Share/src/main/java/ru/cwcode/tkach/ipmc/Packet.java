@@ -10,6 +10,10 @@ public interface Packet {
   
   String channel();
   
+  default String getFinalChannel() {
+    return PacketUtils.getString(channel());
+  }
+  
   default byte[] asByteArray() {
     ByteArrayDataOutput outputStream = ByteStreams.newDataOutput();
     write(outputStream);

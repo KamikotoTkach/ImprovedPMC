@@ -15,9 +15,11 @@ public class PaperIncomingPacketHandler extends IncomingPacketHandler<Player, Pa
   
   @Override
   public void register(String channel, Class<Packet> packetClass, BiConsumer<Player, Packet> onReceive) {
-    if(isRegistered(channel)) return;
+    if (isRegistered(channel)) return;
     
     super.register(channel, packetClass, onReceive);
+    
+    if (!channel.startsWith("ipmc:")) throw new IllegalStateException();
     Bukkit.getMessenger().registerIncomingPluginChannel(plugin, channel, this::receive);
   }
   

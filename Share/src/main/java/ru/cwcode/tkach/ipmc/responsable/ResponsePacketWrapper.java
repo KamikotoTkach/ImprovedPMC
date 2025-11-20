@@ -13,7 +13,7 @@ public class ResponsePacketWrapper implements Packet {
   
   public ResponsePacketWrapper(Packet response, long uid) {
     this.responseBytes = response.asByteArray();
-    this.targetChannel = response.channel();
+    this.targetChannel = response.getFinalChannel();
     this.uid = uid;
   }
   

@@ -15,7 +15,7 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
   }
   
   public void register(String channel, Class<T> packetClass, BiConsumer<P, T> onReceive) {
-    registerWrapper(channel,packetClass).addConsumer(onReceive);
+    registerWrapper(channel, packetClass).addConsumer(onReceive);
   }
   
   public IncomingPacketWrapper<P, T> registerWrapper(String channel, Class<T> packetClass) {

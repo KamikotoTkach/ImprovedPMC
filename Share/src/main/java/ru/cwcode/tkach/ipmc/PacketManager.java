@@ -39,7 +39,7 @@ public class PacketManager<C, P extends Packet, IS, OS, I extends IncomingPacket
   }
   
   public void send(P packet, C connection) {
-    outgoing.register(packet.channel(), packet.getClass());
+    outgoing.register(packet.getFinalChannel(), packet.getClass());
     outgoing.send(packet, connection);
   }
   

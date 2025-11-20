@@ -18,7 +18,7 @@ public class CallPacketWrapper implements Packet {
   public byte[] callPacketBytes;
   
   public CallPacketWrapper(Packet origin) {
-    this.targetChannel = origin.channel();
+    this.targetChannel = origin.getFinalChannel();
     this.callPacketBytes = origin.asByteArray();
     this.uid = counter.getAndIncrement();
   }
