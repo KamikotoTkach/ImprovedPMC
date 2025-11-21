@@ -1,8 +1,5 @@
 package ru.cwcode.tkach.ipmc;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteStreams;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.function.BiConsumer;

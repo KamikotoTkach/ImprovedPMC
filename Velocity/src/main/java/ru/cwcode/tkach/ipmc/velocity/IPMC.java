@@ -10,9 +10,9 @@ import ru.cwcode.tkach.ipmc.Packet;
 import ru.cwcode.tkach.ipmc.PacketManager;
 
 @Plugin(
-  id = "ipmc",
-  name = "IPMC",
-  version = "1.5.0"
+   id = "ipmc",
+   name = "IPMC",
+   version = "1.5.1"
 )
 public class IPMC {
   protected static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> packetManager;

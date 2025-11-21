@@ -6,6 +6,7 @@ import com.google.common.io.ByteStreams;
 
 public interface Packet {
   void read(ByteArrayDataInput inputStream);
+  
   void write(ByteArrayDataOutput outputStream);
   
   default String channel() {

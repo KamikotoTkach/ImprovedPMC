@@ -7,7 +7,7 @@
     <groupId>ru.cwcode.tkach.ipmc</groupId>
     <artifactId>IPMC</artifactId>
     <packaging>jar</packaging>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
@@ -38,17 +38,17 @@
         <dependency>
             <groupId>ru.cwcode.tkach.ipmc</groupId>
             <artifactId>PaperIPMC</artifactId>
-            <version>1.5.0</version>
+            <version>1.5.1</version>
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.ipmc</groupId>
             <artifactId>BungeeIPMC</artifactId>
-            <version>1.5.0</version>
+            <version>1.5.1</version>
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.ipmc</groupId>
             <artifactId>VelocityIPMC</artifactId>
-            <version>1.5.0</version>
+            <version>1.5.1</version>
         </dependency>
     </dependencies>
 </project>

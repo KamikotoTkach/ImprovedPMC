@@ -7,7 +7,7 @@
     <groupId>ru.cwcode.tkach.ipmc</groupId>
     <artifactId>Kafka</artifactId>
     <packaging>jar</packaging>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
 
     <name>KafkaIPMC</name>
 
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>ru.cwcode.tkach.ipmc</groupId>
             <artifactId>Share</artifactId>
-            <version>1.5.0</version>
+            <version>1.5.1</version>
             <scope>compile</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->

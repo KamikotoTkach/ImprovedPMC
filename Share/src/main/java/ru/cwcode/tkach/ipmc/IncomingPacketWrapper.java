@@ -28,10 +28,10 @@ public class IncomingPacketWrapper<P, T extends Packet> {
         consumer.accept(player, packet);
       } catch (Exception e) {
         Logger.getLogger("IPMC").warning("Cannot process packet %s for player %s: %s (consumer %s)"
-                                           .formatted(packet.channel(),
-                                                      player,
-                                                      e.getMessage(),
-                                                      consumer.getClass().getName()));
+                                            .formatted(packet.channel(),
+                                                       player,
+                                                       e.getMessage(),
+                                                       consumer.getClass().getName()));
       }
     }
   }
