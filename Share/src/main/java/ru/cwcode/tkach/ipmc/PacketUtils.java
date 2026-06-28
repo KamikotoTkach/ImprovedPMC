@@ -8,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public class PacketUtils {
   public static final String INTERNAL_CHANNEL = "ipmc:internal";
+  public static final String CLIENT_CHANNEL = "ipmc:client";
+  public static final int DEFAULT_CLIENT_MAX_PACKET_BYTES = 4096;
   
   public static String extractChannel(Class<? extends Packet> packetClass) {
     try {

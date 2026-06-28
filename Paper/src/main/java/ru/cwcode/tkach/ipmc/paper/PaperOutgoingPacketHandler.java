@@ -8,14 +8,21 @@ import ru.cwcode.tkach.ipmc.Packet;
 import ru.cwcode.tkach.ipmc.PacketUtils;
 
 public class PaperOutgoingPacketHandler extends OutgoingPacketHandler<Player, Packet, JavaPlugin> {
+  private final String minecraftChannel;
+  
   public PaperOutgoingPacketHandler(JavaPlugin source) {
+    this(source, PacketUtils.INTERNAL_CHANNEL);
+  }
+  
+  public PaperOutgoingPacketHandler(JavaPlugin source, String minecraftChannel) {
     super(source);
+    this.minecraftChannel = minecraftChannel;
     
-    Bukkit.getMessenger().registerOutgoingPluginChannel(source, PacketUtils.INTERNAL_CHANNEL);
+    Bukkit.getMessenger().registerOutgoingPluginChannel(source, minecraftChannel);
   }
   
   @Override
   public void send(Packet packet, Player connection) {
-    connection.sendPluginMessage(source, PacketUtils.INTERNAL_CHANNEL, packet.write());
+    connection.sendPluginMessage(source, minecraftChannel, packet.write());
   }
 }

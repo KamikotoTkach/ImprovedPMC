@@ -29,6 +29,10 @@ public class PacketManager<C, P extends Packet, IS, OS, I extends IncomingPacket
     incoming.register(PacketUtils.extractChannel(packetClass), (Class<P>) packetClass, (BiConsumer<C, P>) onReceive);
   }
   
+  public <X extends Packet> void registerIncomingPacket(Class<X> packetClass, PacketOptions options, BiConsumer<C, X> onReceive) {
+    incoming.register(PacketUtils.extractChannel(packetClass), (Class<P>) packetClass, options, (BiConsumer<C, P>) onReceive);
+  }
+  
   public void registerOutgoingPacket(Class<? extends Packet> packetClass) {
     outgoing.register(PacketUtils.extractChannel(packetClass), packetClass);
   }

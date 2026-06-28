@@ -7,10 +7,16 @@ import java.util.logging.Logger;
 
 public class IncomingPacketWrapper<P, T extends Packet> {
   protected Class<T> packetClass;
+  protected PacketOptions options;
   protected List<BiConsumer<P, T>> onReceive;
   
   public IncomingPacketWrapper(Class<T> packetClass) {
+    this(packetClass, PacketOptions.unlimited());
+  }
+  
+  public IncomingPacketWrapper(Class<T> packetClass, PacketOptions options) {
     this.packetClass = packetClass;
+    this.options = options;
     this.onReceive = new ArrayList<>();
   }
   
@@ -20,6 +26,10 @@ public class IncomingPacketWrapper<P, T extends Packet> {
   
   public Class<? extends Packet> packetClass() {
     return packetClass;
+  }
+  
+  public PacketOptions options() {
+    return options;
   }
   
   public void onReceive(P player, T packet) {

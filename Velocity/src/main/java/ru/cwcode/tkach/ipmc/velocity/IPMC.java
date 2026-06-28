@@ -8,6 +8,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.ServerConnection;
 import ru.cwcode.tkach.ipmc.Packet;
 import ru.cwcode.tkach.ipmc.PacketManager;
+import ru.cwcode.tkach.ipmc.PacketUtils;
 
 @Plugin(
    id = "ipmc",
@@ -16,6 +17,7 @@ import ru.cwcode.tkach.ipmc.PacketManager;
 )
 public class IPMC {
   protected static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> packetManager;
+  protected static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> clientPacketManager;
   @Inject
   ProxyServer server;
   
@@ -23,9 +25,19 @@ public class IPMC {
     return packetManager;
   }
   
+  public static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> clientPacketManager() {
+    return clientPacketManager;
+  }
+  
   @Subscribe
   public void onProxyInitialize(ProxyInitializeEvent event) {
     packetManager = new PacketManager<>(new VelocityIncomingPacketHandler(this),
                                         new VelocityOutgoingPacketHandler(this));
+    
+    clientPacketManager = new PacketManager<>(new VelocityIncomingPacketHandler(this,
+                                                                                PacketUtils.CLIENT_CHANNEL,
+                                                                                true,
+                                                                                PacketUtils.DEFAULT_CLIENT_MAX_PACKET_BYTES),
+                                              new VelocityOutgoingPacketHandler(this, PacketUtils.CLIENT_CHANNEL));
   }
 }
