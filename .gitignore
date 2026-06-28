@@ -3,8 +3,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+!**/dependency-reduced-pom.xml
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
+.idea/misc.xml
+.idea/amplicode-jpa.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
