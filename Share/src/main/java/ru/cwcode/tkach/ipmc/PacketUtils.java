@@ -10,6 +10,9 @@ public class PacketUtils {
   public static final String INTERNAL_CHANNEL = "ipmc:internal";
   public static final String CLIENT_CHANNEL = "ipmc:client";
   public static final int DEFAULT_CLIENT_MAX_PACKET_BYTES = 4096;
+  public static final long DEFAULT_CALL_TIMEOUT_MILLIS = 5000L;
+  public static final int DEFAULT_MAX_NESTED_PACKET_BYTES = 1024 * 1024;
+  public static final int DEFAULT_MAX_SERIALIZED_PACKET_BYTES = 1024 * 1024;
   
   public static String extractChannel(Class<? extends Packet> packetClass) {
     try {

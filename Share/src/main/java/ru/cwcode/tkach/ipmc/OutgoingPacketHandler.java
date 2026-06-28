@@ -1,10 +1,11 @@
 package ru.cwcode.tkach.ipmc;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public abstract class OutgoingPacketHandler<C, P extends Packet, S> {
   protected S source;
-  protected HashMap<String, Class<? extends Packet>> registeredOutgoingPackets = new HashMap<>();
+  protected ConcurrentMap<String, Class<? extends Packet>> registeredOutgoingPackets = new ConcurrentHashMap<>();
   
   public OutgoingPacketHandler(S source) {
     this.source = source;
@@ -25,8 +26,6 @@ public abstract class OutgoingPacketHandler<C, P extends Packet, S> {
   public abstract void send(P packet, C connection);
   
   public void onShutdown() {
-    for (String channel : registeredOutgoingPackets.keySet()) {
-      unregister(channel);
-    }
+    registeredOutgoingPackets.clear();
   }
 }

@@ -38,12 +38,16 @@ public class PacketManager<C, P extends Packet, IS, OS, I extends IncomingPacket
   }
   
   public void onShutdown() {
+    callListener.onShutdown();
     incoming.onShutdown();
     outgoing.onShutdown();
   }
   
   public void send(P packet, C connection) {
-    outgoing.register(packet.channel(), packet.getClass());
+    String channel = packet.channel();
+    if (!outgoing.isRegistered(channel)) {
+      outgoing.register(channel, packet.getClass());
+    }
     outgoing.send(packet, connection);
   }
   
@@ -54,14 +58,11 @@ public class PacketManager<C, P extends Packet, IS, OS, I extends IncomingPacket
     
     CallPacketWrapper callPacketWrapper = new CallPacketWrapper(packet);
     responseListener.waitForResponse(callPacketWrapper.getUid(), (CompletableFuture<P>) completable);
+    CompletableFuture<R> timed = completable.orTimeout(PacketUtils.DEFAULT_CALL_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
     
     send((P) callPacketWrapper, connection);
     
-    return completable.orTimeout(5, TimeUnit.SECONDS)
-                      .exceptionally(throwable -> {
-                        throwable.printStackTrace();
-                        return null;
-                      });
+    return timed;
   }
   
   public void sendResponse(P callPacket, P responsePacket) {

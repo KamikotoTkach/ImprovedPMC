@@ -17,12 +17,15 @@ public abstract class SerializablePacket<T extends Serializable> implements Pack
   @SneakyThrows
   @SuppressWarnings("unchecked")
   public void read(ByteArrayDataInput input) {
-    byte[] data = new byte[input.readInt()];
+    int size = input.readInt();
+    validateSerializedSize(size);
+    byte[] data = new byte[size];
     
     input.readFully(data);
     
     try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
          ObjectInputStream ois = new ObjectInputStream(bis)) {
+      ois.setObjectInputFilter(objectInputFilter());
       object = (T) ois.readObject();
     }
   }
@@ -36,8 +39,32 @@ public abstract class SerializablePacket<T extends Serializable> implements Pack
       oos.writeObject(object);
       
       byte[] bytes = bos.toByteArray();
+      validateSerializedSize(bytes.length);
       output.writeInt(bytes.length);
       output.write(bytes);
+    }
+  }
+
+  protected int maxSerializedBytes() {
+    return PacketUtils.DEFAULT_MAX_SERIALIZED_PACKET_BYTES;
+  }
+
+  protected ObjectInputFilter objectInputFilter() {
+    int maxBytes = maxSerializedBytes();
+    String filter = maxBytes > PacketOptions.UNLIMITED_BYTES
+                    ? "maxbytes=" + maxBytes + ";maxdepth=50;maxrefs=10000;*"
+                    : "maxdepth=50;maxrefs=10000;*";
+    return ObjectInputFilter.Config.createFilter(filter);
+  }
+
+  private void validateSerializedSize(int size) throws IOException {
+    if (size < 0) {
+      throw new IOException("Serialized packet size cannot be negative: " + size);
+    }
+
+    int maxBytes = maxSerializedBytes();
+    if (maxBytes > PacketOptions.UNLIMITED_BYTES && size > maxBytes) {
+      throw new IOException("Serialized packet is too large: " + size + " bytes");
     }
   }
 }

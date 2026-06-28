@@ -5,12 +5,13 @@ import com.google.common.io.ByteArrayDataOutput;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ru.cwcode.tkach.ipmc.Packet;
+import ru.cwcode.tkach.ipmc.PacketUtils;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 @NoArgsConstructor
 public class CallPacketWrapper implements Packet {
-  private static final AtomicInteger counter = new AtomicInteger(0);
+  private static final AtomicLong counter = new AtomicLong(0);
   
   @Getter
   long uid;
@@ -31,6 +32,9 @@ public class CallPacketWrapper implements Packet {
     
     int size = inputStream.readInt();
     if (size < 0) return;
+    if (size > PacketUtils.DEFAULT_MAX_NESTED_PACKET_BYTES) {
+      throw new IllegalArgumentException("Nested call packet is too large: " + size + " bytes");
+    }
     
     callPacketBytes = new byte[size];
     inputStream.readFully(callPacketBytes);

@@ -1,13 +1,14 @@
 package ru.cwcode.tkach.ipmc;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiConsumer;
 import java.util.logging.Logger;
 
 public class IncomingPacketHandler<P, T extends Packet, S> {
   protected S plugin;
-  protected HashMap<String, IncomingPacketWrapper<P, T>> registeredIncomingPackets = new HashMap<>();
+  protected ConcurrentMap<String, IncomingPacketWrapper<P, T>> registeredIncomingPackets = new ConcurrentHashMap<>();
   
   public IncomingPacketHandler(S plugin) {
     this.plugin = plugin;
@@ -43,6 +44,10 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
   
   public T parse(String channel, byte[] packet) {
     IncomingPacketWrapper<P, T> wrapper = registeredIncomingPackets.get(channel);
+    return parse(channel, packet, wrapper);
+  }
+
+  protected T parse(String channel, byte[] packet, IncomingPacketWrapper<P, T> wrapper) {
     if (wrapper == null) return null;
     
     Class<? extends Packet> packetClass = wrapper.packetClass();
@@ -71,16 +76,15 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
   }
   
   public void receive(P player, String channel, byte[] packet) {
-    T parsed = parse(channel, packet);
+    IncomingPacketWrapper<P, T> wrapper = registeredIncomingPackets.get(channel);
+    T parsed = parse(channel, packet, wrapper);
     
     if (parsed != null) {
-      registeredIncomingPackets.get(channel).onReceive(player, parsed);
+      wrapper.onReceive(player, parsed);
     }
   }
   
   public void onShutdown() {
-    for (String channel : registeredIncomingPackets.keySet()) {
-      unregister(channel);
-    }
+    registeredIncomingPackets.clear();
   }
 }

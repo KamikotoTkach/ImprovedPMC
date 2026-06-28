@@ -4,6 +4,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import lombok.NoArgsConstructor;
 import ru.cwcode.tkach.ipmc.Packet;
+import ru.cwcode.tkach.ipmc.PacketUtils;
 
 @NoArgsConstructor
 public class ResponsePacketWrapper implements Packet {
@@ -24,6 +25,9 @@ public class ResponsePacketWrapper implements Packet {
     
     int size = inputStream.readInt();
     if (size < 0) return;
+    if (size > PacketUtils.DEFAULT_MAX_NESTED_PACKET_BYTES) {
+      throw new IllegalArgumentException("Nested response packet is too large: " + size + " bytes");
+    }
     
     responseBytes = new byte[size];
     inputStream.readFully(responseBytes);

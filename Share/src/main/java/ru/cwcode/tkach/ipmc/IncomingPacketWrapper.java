@@ -1,7 +1,7 @@
 package ru.cwcode.tkach.ipmc;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiConsumer;
 import java.util.logging.Logger;
 
@@ -17,7 +17,7 @@ public class IncomingPacketWrapper<P, T extends Packet> {
   public IncomingPacketWrapper(Class<T> packetClass, PacketOptions options) {
     this.packetClass = packetClass;
     this.options = options;
-    this.onReceive = new ArrayList<>();
+    this.onReceive = new CopyOnWriteArrayList<>();
   }
   
   public void addConsumer(BiConsumer<P, T> onReceive) {
