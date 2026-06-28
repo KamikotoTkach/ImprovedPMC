@@ -6,7 +6,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Kafka" />
         <module name="PaperIPMC" />
         <module name="VelocityIPMC" />
         <module name="Share" />
@@ -14,5 +13,8 @@
         <module name="IPMC" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Kafka" target="16" />
+    </bytecodeTargetLevel>
   </component>
 </project>
