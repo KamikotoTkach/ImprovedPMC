@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.cwcode.tkach.ipmc</groupId>
-    <artifactId>VelocityIPMC</artifactId>
+    <artifactId>BungeeIPMC</artifactId>
     <version>1.5.1</version>
     <packaging>jar</packaging>
 
-    <name>VelocityIPMC</name>
-    <description>Plugin message channel wrappers (Velocity platform)</description>
+    <name>BungeeIPMC</name>
+    <description>Plugin message channel wrappers (Bungee platform)</description>
     <url>https://github.com/KamikotoTkach/ImprovedPMC/</url>
 
     <properties>
@@ -36,6 +36,11 @@
         <developer>
             <id>tkach</id>
             <name>Tkachenko Danil</name>
+            <url>https://t.me/tkachx</url>
+        </developer>
+        <developer>
+            <id>Soul_KRT</id>
+            <name>Egor Yaroslavtsev</name>
             <url>https://t.me/tkachx</url>
         </developer>
     </developers>
@@ -217,18 +222,11 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>papermc-repo</id>
-            <url>https://repo.papermc.io/repository/maven-public/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
-            <groupId>com.velocitypowered</groupId>
-            <artifactId>velocity-api</artifactId>
-            <version>3.2.0-20231130.230432-79</version>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>1.20-R0.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

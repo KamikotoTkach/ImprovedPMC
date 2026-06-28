@@ -1,10 +1,16 @@
 package ru.cwcode.tkach.ipmc;
 
-import lombok.SneakyThrows;
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
 
+import java.io.ByteArrayInputStream;
 import java.lang.reflect.InvocationTargetException;
 
 public class PacketUtils {
+  public static final String INTERNAL_CHANNEL = "ipmc:internal";
+  public static final String CLIENT_CHANNEL = "ipmc:client";
+  public static final int DEFAULT_CLIENT_MAX_PACKET_BYTES = 4096;
+  
   public static String extractChannel(Class<? extends Packet> packetClass) {
     try {
       return packetClass.getConstructor().newInstance().channel();
@@ -14,8 +20,21 @@ public class PacketUtils {
     return null;
   }
   
-  @SneakyThrows
-  public static <T> T create(Class<T> type) {
-    return type.getConstructor().newInstance();
+  public static String extractChannel(byte[] data) {
+    try {
+      ByteArrayDataInput input = ByteStreams.newDataInput(data);
+      return input.readUTF();
+    } catch (Exception e) {
+      return null;
+    }
+  }
+  
+  public static String extractChannel(ByteArrayInputStream data) {
+    try {
+      ByteArrayDataInput input = ByteStreams.newDataInput(data);
+      return input.readUTF();
+    } catch (Exception e) {
+      return null;
+    }
   }
 }

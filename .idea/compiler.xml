@@ -7,11 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Kafka" />
-        <module name="Paper" />
         <module name="PaperIPMC" />
         <module name="VelocityIPMC" />
         <module name="Share" />
-        <module name="Velocity" />
+        <module name="BungeeIPMC" />
         <module name="IPMC" />
       </profile>
     </annotationProcessing>

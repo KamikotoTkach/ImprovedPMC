@@ -5,31 +5,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.cwcode.tkach.ipmc.OutgoingPacketHandler;
 import ru.cwcode.tkach.ipmc.Packet;
+import ru.cwcode.tkach.ipmc.PacketUtils;
 
 public class PaperOutgoingPacketHandler extends OutgoingPacketHandler<Player, Packet, JavaPlugin> {
+  private final String minecraftChannel;
+  
   public PaperOutgoingPacketHandler(JavaPlugin source) {
+    this(source, PacketUtils.INTERNAL_CHANNEL);
+  }
+  
+  public PaperOutgoingPacketHandler(JavaPlugin source, String minecraftChannel) {
     super(source);
-  }
-  
-  @Override
-  public void register(String channel, Class<? extends Packet> packetClass) {
-    if (isRegistered(channel)) return;
+    this.minecraftChannel = minecraftChannel;
     
-    super.register(channel, packetClass);
-    
-    Bukkit.getMessenger().registerOutgoingPluginChannel(source, channel);
-  }
-  
-  @Override
-  public void unregister(String channel) {
-    super.unregister(channel);
-    Bukkit.getMessenger().unregisterOutgoingPluginChannel(source, channel);
+    Bukkit.getMessenger().registerOutgoingPluginChannel(source, minecraftChannel);
   }
   
   @Override
   public void send(Packet packet, Player connection) {
-    source.getLogger().info("Sending packet " + packet.channel() + " to " + connection.getName());
-    
-    connection.sendPluginMessage(source, packet.channel(), packet.asByteArray());
+    connection.sendPluginMessage(source, minecraftChannel, packet.write());
   }
 }

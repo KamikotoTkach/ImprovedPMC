@@ -1,10 +1,9 @@
 package ru.cwcode.tkach.ipmc;
 
-import com.google.common.io.ByteStreams;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.function.BiConsumer;
+import java.util.logging.Logger;
 
 public class IncomingPacketHandler<P, T extends Packet, S> {
   protected S plugin;
@@ -15,11 +14,19 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
   }
   
   public void register(String channel, Class<T> packetClass, BiConsumer<P, T> onReceive) {
-    registerWrapper(channel,packetClass).addConsumer(onReceive);
+    register(channel, packetClass, PacketOptions.unlimited(), onReceive);
+  }
+  
+  public void register(String channel, Class<T> packetClass, PacketOptions options, BiConsumer<P, T> onReceive) {
+    registerWrapper(channel, packetClass, options).addConsumer(onReceive);
   }
   
   public IncomingPacketWrapper<P, T> registerWrapper(String channel, Class<T> packetClass) {
-    return registeredIncomingPackets.computeIfAbsent(channel, k -> new IncomingPacketWrapper<>(packetClass));
+    return registerWrapper(channel, packetClass, PacketOptions.unlimited());
+  }
+  
+  public IncomingPacketWrapper<P, T> registerWrapper(String channel, Class<T> packetClass, PacketOptions options) {
+    return registeredIncomingPackets.computeIfAbsent(channel, k -> new IncomingPacketWrapper<>(packetClass, options));
   }
   
   public IncomingPacketWrapper<P, T> getPacketHandlersWrapper(String channel) {
@@ -41,12 +48,23 @@ public class IncomingPacketHandler<P, T extends Packet, S> {
     Class<? extends Packet> packetClass = wrapper.packetClass();
     if (packetClass == null) return null;
     
+    int maxBytes = wrapper.options().maxBytes();
+    if (maxBytes > PacketOptions.UNLIMITED_BYTES && packet.length > maxBytes) {
+      Logger.getLogger("IPMC").warning("Rejected oversized packet %s: %s bytes > %s bytes"
+                                         .formatted(channel, packet.length, maxBytes));
+      return null;
+    }
+    
     Packet packetInstance = null;
     try {
       packetInstance = packetClass.getConstructor().newInstance();
-      packetInstance.read(ByteStreams.newDataInput(packet));
+      packetInstance.read(packet);
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-      e.printStackTrace();
+      Logger.getLogger("IPMC").warning("Cannot instantiate packet %s: %s".formatted(channel, e.getMessage()));
+      return null;
+    } catch (Exception e) {
+      Logger.getLogger("IPMC").warning("Cannot parse packet %s: %s".formatted(channel, e.getMessage()));
+      return null;
     }
     
     return (T) packetInstance;

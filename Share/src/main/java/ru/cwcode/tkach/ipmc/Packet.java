@@ -6,12 +6,22 @@ import com.google.common.io.ByteStreams;
 
 public interface Packet {
   void read(ByteArrayDataInput inputStream);
+  
   void write(ByteArrayDataOutput outputStream);
   
-  String channel();
+  default String channel() {
+    return getClass().getName();
+  }
   
-  default byte[] asByteArray() {
+  default void read(byte[] data) {
+    ByteArrayDataInput dataInput = ByteStreams.newDataInput(data);
+    dataInput.readUTF();
+    read(dataInput);
+  }
+  
+  default byte[] write() {
     ByteArrayDataOutput outputStream = ByteStreams.newDataOutput();
+    outputStream.writeUTF(channel());
     write(outputStream);
     return outputStream.toByteArray();
   }

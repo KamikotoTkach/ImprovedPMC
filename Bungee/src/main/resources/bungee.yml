@@ -1,0 +1,4 @@
+name: IPMC
+version: "1.5.1"
+main: ru.cwcode.tkach.ipmc.bungee.IPMC
+author: "cwcode"

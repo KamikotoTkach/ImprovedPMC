@@ -12,7 +12,7 @@ public class ResponsePacketWrapper implements Packet {
   byte[] responseBytes;
   
   public ResponsePacketWrapper(Packet response, long uid) {
-    this.responseBytes = response.asByteArray();
+    this.responseBytes = response.write();
     this.targetChannel = response.channel();
     this.uid = uid;
   }

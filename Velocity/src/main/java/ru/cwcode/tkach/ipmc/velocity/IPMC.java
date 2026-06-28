@@ -6,22 +6,18 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.ServerConnection;
-import com.velocitypowered.api.proxy.messages.ChannelIdentifier;
-import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import ru.cwcode.tkach.ipmc.Packet;
 import ru.cwcode.tkach.ipmc.PacketManager;
-
-import java.util.HashMap;
+import ru.cwcode.tkach.ipmc.PacketUtils;
 
 @Plugin(
    id = "ipmc",
    name = "IPMC",
-   version = "1.0"
+   version = "1.5.1"
 )
 public class IPMC {
   protected static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> packetManager;
-  HashMap<String, ChannelIdentifier> identifiers = new HashMap<>();
-  HashMap<ChannelIdentifier, String> identifiersRev = new HashMap<>();
+  protected static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> clientPacketManager;
   @Inject
   ProxyServer server;
   
@@ -29,14 +25,19 @@ public class IPMC {
     return packetManager;
   }
   
+  public static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> clientPacketManager() {
+    return clientPacketManager;
+  }
+  
   @Subscribe
   public void onProxyInitialize(ProxyInitializeEvent event) {
     packetManager = new PacketManager<>(new VelocityIncomingPacketHandler(this),
                                         new VelocityOutgoingPacketHandler(this));
-  }
-  
-  public void registerIdentifier(String channel, MinecraftChannelIdentifier channelInst) {
-    identifiersRev.put(channelInst, channel);
-    identifiers.put(channel, channelInst);
+    
+    clientPacketManager = new PacketManager<>(new VelocityIncomingPacketHandler(this,
+                                                                                PacketUtils.CLIENT_CHANNEL,
+                                                                                true,
+                                                                                PacketUtils.DEFAULT_CLIENT_MAX_PACKET_BYTES),
+                                              new VelocityOutgoingPacketHandler(this, PacketUtils.CLIENT_CHANNEL));
   }
 }
