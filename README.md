@@ -18,7 +18,7 @@ Add the module for your platform:
 <dependency>
   <groupId>ru.cwcode.tkach.ipmc</groupId>
   <artifactId>PaperIPMC</artifactId>
-  <version>1.5.1</version>
+  <version>1.6.0</version>
   <scope>provided</scope>
 </dependency>
 ```

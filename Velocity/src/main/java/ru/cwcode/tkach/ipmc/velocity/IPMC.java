@@ -13,7 +13,7 @@ import ru.cwcode.tkach.ipmc.PacketUtils;
 @Plugin(
    id = "ipmc",
    name = "IPMC",
-   version = "1.5.1"
+   version = "1.6.0"
 )
 public class IPMC {
   protected static PacketManager<ServerConnection, Packet, IPMC, IPMC, VelocityIncomingPacketHandler, VelocityOutgoingPacketHandler> packetManager;
