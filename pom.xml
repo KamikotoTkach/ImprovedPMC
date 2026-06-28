@@ -16,7 +16,6 @@
         <module>Paper</module>
         <module>Bungee</module>
         <module>Velocity</module>
-        <module>Kafka</module>
         <module>IPMC</module>
     </modules>
 
