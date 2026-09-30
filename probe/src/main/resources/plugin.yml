@@ -1,0 +1,8 @@
+name: IpmcProbe
+main: ru.cwcode.ipmcprobe.paper.IpmcProbePaper
+version: '1'
+api-version: '1.16'
+depend: [IPMC]
+commands:
+  ipmcprobe:
+    description: Runs the IPMC acceptance checks

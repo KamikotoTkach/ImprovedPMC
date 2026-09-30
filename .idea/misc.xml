@@ -12,7 +12,7 @@
         <option value="$PROJECT_DIR$/Kafka/pom.xml" />
       </set>
     </option>
-    <option name="enabledProfiles">
+    <option name="disabledProfiles">
       <list>
         <option value="gensh-deploy" />
       </list>
